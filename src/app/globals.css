@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
+@theme {
+  --color-sage-50: #f4f7f4;
+  --color-sage-100: #e8eee7;
+  --color-sage-200: #d1ddd0;
+  --color-sage-600: #4a6741;
+  --color-sage-700: #3d5435;
+  --color-mint-50: #f2faf9;
+  --color-mint-100: #e6f4f1;
+  --color-mint-200: #cce9e3;
+  --color-mint-400: #a8e0d9;
+  --color-mint-500: #76c7c0;
+  --color-sky-100: #d1e9f6;
+  --color-sky-200: #a3d3ed;
+  --color-sky-400: #7abedb;
+  --color-sky-500: #4a9ec7;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: var(--color-sage-50);
+  --foreground: #2d3e2d;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+@utility bento-card {
+  @apply glass rounded-[2rem] p-6 transition-all duration-300 hover:shadow-lg hover:shadow-sage-200/50;
 }
