@@ -1,15 +1,26 @@
 "use client";
 
-import { Search, MapPin } from "lucide-react";
+import { Search, MapPin, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function LocationSearch() {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      setIsLoading(true);
+      router.push(`/report/${encodeURIComponent(query.trim())}`);
+    }
+  };
 
   return (
     <div className="w-full max-w-2xl mx-auto mb-16 px-4">
-      <div className={`relative transition-all duration-500 transform ${isFocused ? 'scale-[1.02]' : 'scale-100'}`}>
+      <form onSubmit={handleSearch} className={`relative transition-all duration-500 transform ${isFocused ? 'scale-[1.02]' : 'scale-100'}`}>
         <div className="absolute -inset-1 bg-gradient-to-r from-mint-200 via-sage-100 to-sky-200 rounded-[2.2rem] blur-xl opacity-20 group-hover:opacity-40 transition-opacity" />
         
         <div className="relative">
@@ -25,15 +36,24 @@ export function LocationSearch() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search neighborhood, city, or zip code..."
             className="w-full h-20 pl-16 pr-40 rounded-[2rem] glass border-sage-200/60 focus:outline-none focus:ring-4 focus:ring-mint-500/10 focus:border-mint-400/50 transition-all text-sage-700 placeholder:text-sage-400 font-semibold text-lg shadow-xl shadow-sage-900/5"
+            disabled={isLoading}
           />
           
           <div className="absolute inset-y-0 right-3 flex items-center">
-            <button className="bg-sage-700 text-white h-14 px-10 rounded-[1.4rem] font-bold hover:bg-sage-800 hover:shadow-2xl hover:shadow-sage-700/30 active:scale-95 transition-all flex items-center gap-2">
-              Analyze Area
+            <button 
+              type="submit"
+              disabled={isLoading || !query.trim()}
+              className="bg-sage-700 text-white h-14 px-10 rounded-[1.4rem] font-bold hover:bg-sage-800 hover:shadow-2xl hover:shadow-sage-700/30 active:scale-95 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <Loader2 className="animate-spin" size={20} />
+              ) : (
+                "Analyze Area"
+              )}
             </button>
           </div>
         </div>
-      </div>
+      </form>
       
       <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-sage-400 font-bold uppercase tracking-widest">
         <div className="flex items-center gap-2 group cursor-pointer hover:text-sage-600 transition-colors">

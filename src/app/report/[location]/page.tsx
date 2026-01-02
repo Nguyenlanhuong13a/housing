@@ -10,6 +10,7 @@ import { GrowthDeepDive } from "@/components/GrowthDeepDive";
 import { FamilyDeepDive } from "@/components/FamilyDeepDive";
 import { BusinessDeepDive } from "@/components/BusinessDeepDive";
 import { FiveMinuteVerdict } from "@/components/FiveMinuteVerdict";
+import { HeatmapView } from "@/components/map/HeatmapView";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ReportPage({ params }: { params: Promise<{ location: string }> }) {
@@ -109,8 +110,13 @@ export default function ReportPage({ params }: { params: Promise<{ location: str
           </div>
 
           {/* 5-Minute Verdict Section */}
-          <div className="mb-12">
-            <FiveMinuteVerdict locationName={locationData.name} />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+            <div className="lg:col-span-8">
+              <HeatmapView />
+            </div>
+            <div className="lg:col-span-4">
+              <FiveMinuteVerdict locationName={locationData.name} />
+            </div>
           </div>
         </div>
       </header>

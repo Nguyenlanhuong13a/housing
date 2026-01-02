@@ -2,43 +2,15 @@
 
 import { Map as MapIcon, Layers, Maximize2, MousePointer2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { MapComponent } from "./MapComponent";
 
 export function HeatmapView() {
   return (
-    <div className="bento-card h-[500px] relative overflow-hidden group">
-      {/* Abstract Map Placeholder Pattern */}
-      <div className="absolute inset-0 bg-sage-100/30 opacity-50" 
-           style={{ backgroundImage: 'radial-gradient(#d1ddd0 1.5px, transparent 1.5px)', backgroundSize: '30px 30px' }} />
+    <div className="bento-card h-[500px] relative overflow-hidden group p-0!">
+      <MapComponent />
       
-      {/* Simulated Heatmap Pulsing Hotspots */}
-      <div className="absolute inset-0">
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-          className="absolute top-1/3 left-1/4 w-32 h-32 bg-red-400 rounded-full blur-[40px]"
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.5, 0.2] }}
-          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-1/4 right-1/3 w-40 h-40 bg-mint-400 rounded-full blur-[50px]"
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.4, 0.1] }}
-          transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 2 }}
-          className="absolute top-1/2 right-1/4 w-24 h-24 bg-sky-400 rounded-full blur-[30px]"
-        />
-      </div>
-
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-sage-400 pointer-events-none">
-        <div className="p-4 rounded-full bg-white/60 backdrop-blur-md border border-sage-200 mb-4 shadow-sm">
-          <MapIcon size={48} className="text-sage-600 opacity-80" />
-        </div>
-        <p className="font-bold text-xl text-sage-700">Interactive Heatmap</p>
-        <p className="text-sm font-medium text-sage-500">MapLibre Engine Placeholder • Layer: Analytics v1</p>
-      </div>
-
-      {/* Map Controls */}
-      <div className="absolute top-6 right-6 flex flex-col gap-2">
+      {/* UI Overlays */}
+      <div className="absolute top-6 right-6 flex flex-col gap-2 z-20">
         <button className="p-3 bg-white/80 backdrop-blur-md rounded-2xl border border-sage-200 text-sage-600 hover:bg-white transition-all shadow-sm active:scale-95 group/btn">
           <Layers size={20} className="group-hover/btn:rotate-12 transition-transform" />
         </button>
